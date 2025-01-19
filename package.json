@@ -1,0 +1,17 @@
+{
+  "name": "proxy-mate",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Jose Robinson",
+    "url": "https://joserobinson.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrobinsonc/proxy-mate.git"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
