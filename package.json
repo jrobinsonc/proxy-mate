@@ -11,6 +11,16 @@
     "type": "git",
     "url": "https://github.com/jrobinsonc/proxy-mate.git"
   },
+  "scripts": {
+    "check-types": "yarn tsc --noEmit --pretty",
+    "dev": "tsx watch src"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.10.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
   "engines": {
     "node": ">=22"
   }
