@@ -3,17 +3,17 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
-    "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
-    "strict": true,
     "noUncheckedIndexedAccess": true,
+    "target": "ESNext",
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "noEmit": true,
   },
   "include": [
     "src/**/*",
+    "tests/**/*"
   ],
   "exclude": [
     "node_modules"
