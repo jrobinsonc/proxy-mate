@@ -1,13 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
-import { fileURLToPath } from 'node:url';
 import { parseZodErrors } from './utils/zod';
 
 /**
  * Absolute path to the root directory.
  */
-const rootDir: string = path.resolve(fileURLToPath(import.meta.url), '..');
+const rootDir: string = path.resolve('src');
 
 // eslint-disable-next-line @typescript-eslint/typedef
 const configSchema = z.object({
