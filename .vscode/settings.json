@@ -9,5 +9,8 @@
   "prettier.enable": true,
   "eslint.enable": true,
   "eslint.format.enable": true,
-  "eslint.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+  "cSpell.words": [
+    "autoconfig"
+  ]
 }

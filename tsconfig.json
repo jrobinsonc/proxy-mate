@@ -2,7 +2,6 @@
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "noUncheckedIndexedAccess": true,
