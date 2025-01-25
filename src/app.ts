@@ -7,6 +7,7 @@ import type {
 import Fastify from 'fastify';
 import pkg from '../package.json';
 import pacRoute from './routes/pac-route';
+import printRegisteredRoutes from './plugins/print-registered-routes';
 
 export default function app(opts: FastifyServerOptions = {}): FastifyInstance {
   const fastify: FastifyInstance = Fastify(opts);
@@ -16,6 +17,7 @@ export default function app(opts: FastifyServerOptions = {}): FastifyInstance {
   });
 
   pacRoute(fastify);
+  printRegisteredRoutes(fastify);
 
   return fastify;
 }
