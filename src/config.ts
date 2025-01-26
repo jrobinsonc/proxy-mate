@@ -19,7 +19,10 @@ const configSchema = z.object({
    */
   routes: z.record(z.string(), z.string().url()),
 });
-let config: z.infer<typeof configSchema>;
+
+type Config = z.infer<typeof configSchema>;
+
+let config: Config;
 
 try {
   const configStr: string = fs.readFileSync(
@@ -90,3 +93,4 @@ try {
 }
 
 export { config, env, LogLevel, NodeEnv };
+export type { Config };
