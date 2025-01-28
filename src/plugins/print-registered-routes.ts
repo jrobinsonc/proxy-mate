@@ -1,12 +1,23 @@
-import type { FastifyInstance } from 'fastify';
+import type {
+  FastifyInstance,
+  FastifyPluginDoneFn,
+  FastifyPluginOptions,
+} from 'fastify';
 import { config, env } from '../config';
+import fp from 'fastify-plugin';
 
 /**
  * Prints the registered routes to the console when the server starts.
  *
  * @param fastify - The Fastify instance.
+ * @param opts - The Fastify plugin options.
+ * @param done - The Fastify plugin done function.
  */
-export default function printRegisteredRoutes(fastify: FastifyInstance): void {
+function printRegisteredRoutes(
+  fastify: FastifyInstance,
+  opts: FastifyPluginOptions,
+  done: FastifyPluginDoneFn,
+): void {
   fastify.addHook('onListen', () => {
     fastify.log.info('');
     fastify.log.info('=========================================');
@@ -21,4 +32,8 @@ export default function printRegisteredRoutes(fastify: FastifyInstance): void {
     fastify.log.info('=========================================');
     fastify.log.info('');
   });
+
+  done();
 }
+
+export default fp(printRegisteredRoutes);

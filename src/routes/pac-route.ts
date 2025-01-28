@@ -1,4 +1,10 @@
-import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import type {
+  FastifyInstance,
+  FastifyReply,
+  FastifyRequest,
+  FastifyPluginOptions,
+  FastifyPluginDoneFn,
+} from 'fastify';
 import { config } from '../config';
 import { getProxyUri } from '../utils/get-proxy-uri';
 import { StatusCodes } from '../utils/http';
@@ -7,8 +13,14 @@ import { StatusCodes } from '../utils/http';
  * Registers the Proxy Auto-Configuration (PAC) file route.
  *
  * @param fastify - The Fastify instance.
+ * @param opts - The Fastify plugin options.
+ * @param done - The Fastify plugin done function.
  */
-export default function pacRoute(fastify: FastifyInstance): void {
+export default function pacRoute(
+  fastify: FastifyInstance,
+  opts: FastifyPluginOptions,
+  done: FastifyPluginDoneFn,
+): void {
   fastify.get('/proxy.pac', (request: FastifyRequest, reply: FastifyReply) => {
     const proxyUri: string = getProxyUri(fastify);
 
@@ -34,4 +46,6 @@ export default function pacRoute(fastify: FastifyInstance): void {
       `function FindProxyForURL(url, host) {\n${proxyRules}\n\treturn "DIRECT";\n}`,
     );
   });
+
+  done();
 }

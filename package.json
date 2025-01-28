@@ -1,6 +1,6 @@
 {
   "name": "proxy-mate",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "type": "module",
   "author": {
@@ -21,7 +21,9 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@fastify/autoload": "^6.0.3",
     "fastify": "^5.2.1",
+    "fastify-plugin": "^5.0.1",
     "pino-pretty": "^13.0.0",
     "zod": "^3.24.1"
   },
