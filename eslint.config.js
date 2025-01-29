@@ -109,10 +109,10 @@ export default tseslint.config(
     // type-checking rules for JS files.
     extends: [tseslint.configs.disableTypeChecked],
   },
-  // {
-  //   files: ['tests/**/*.ts'],
-  //   env: {
-  //     jest: true,
-  //   },
-  // },
+  {
+    files: ['tests/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
 );
