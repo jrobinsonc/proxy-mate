@@ -10,7 +10,11 @@ import { getProxyUri } from '../../src/utils/get-proxy-uri';
 import { StatusCodes } from '../../src/utils/http';
 import { buildFastifyInstance } from '../__helpers__/fastify';
 
-jest.mock('../../src/config');
+jest.mock('../../src/config', () => ({
+  config: {
+    tld: undefined,
+  },
+}));
 jest.mock('../../src/utils/get-proxy-uri');
 
 const host: string = '127.0.0.1:3000';

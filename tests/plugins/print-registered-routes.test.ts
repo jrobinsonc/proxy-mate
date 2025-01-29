@@ -4,7 +4,14 @@ import { config, env } from '../../src/config';
 import printRegisteredRoutes from '../../src/plugins/print-registered-routes';
 import { buildFastifyInstance } from '../__helpers__/fastify';
 
-jest.mock('../../src/config');
+jest.mock('../../src/config', () => ({
+  config: {
+    tld: undefined,
+  },
+  env: {
+    PORT: undefined,
+  },
+}));
 
 describe('Print Registered Routes Plugin', () => {
   const fastify: FastifyInstance = buildFastifyInstance([
