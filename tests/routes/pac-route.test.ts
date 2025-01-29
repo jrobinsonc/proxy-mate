@@ -1,59 +1,39 @@
 import type {
   FastifyInstance,
-  LightMyRequestResponse,
   InjectOptions,
+  LightMyRequestResponse,
 } from 'fastify';
-import app from '../../src/app';
+import type { Config } from '../../src/config';
+import { config } from '../../src/config';
+import pacRoute from '../../src/routes/pac-route';
+import { getProxyUri } from '../../src/utils/get-proxy-uri';
 import { StatusCodes } from '../../src/utils/http';
-import type { AddressInfo } from 'node:net';
-import { config, type Config } from '../../src/config';
-import pkg from '../../package.json';
+import { buildFastifyInstance } from '../__helpers__/fastify';
 
 jest.mock('../../src/config');
+jest.mock('../../src/utils/get-proxy-uri');
 
-const addressInfo: AddressInfo = {
-  address: '127.0.0.1',
-  port: 3000,
-  family: 'IPv4',
-};
-
+const host: string = '127.0.0.1:3000';
+/**
+ * Default request arguments for the PAC route
+ */
 const defRequestArgs: InjectOptions = {
   method: 'GET',
   url: '/proxy.pac',
   headers: {
-    host: `${addressInfo.address}:${String(addressInfo.port)}`,
+    host,
   },
 };
 
-/**
- * Builds a Fastify instance for testing.
- *
- * @returns The Fastify instance
- */
-function buildFastifyInstance(): FastifyInstance {
-  const fastify: FastifyInstance = app();
-
-  fastify.server.address = (): AddressInfo => addressInfo;
-
-  beforeAll(() => fastify.ready());
-  afterAll(() => fastify.close());
-
-  return fastify;
-}
-
 describe('PAC Route', () => {
-  const fastify: FastifyInstance = buildFastifyInstance();
-
-  it('returns ProxyMate header', async () => {
-    const res: LightMyRequestResponse = await fastify.inject({
-      ...defRequestArgs,
-    });
-
-    expect(res.headers['x-proxymate']).toEqual(pkg.version);
-  });
+  const fastify: FastifyInstance = buildFastifyInstance([pacRoute]);
 
   it('returns valid PAC file', async () => {
     const mockedConfig: jest.MockedObjectDeep<Config> = jest.mocked(config);
+    const mockedGetProxyUri: jest.MockedFunction<typeof getProxyUri> =
+      jest.mocked(getProxyUri);
+
+    mockedGetProxyUri.mockReturnValueOnce(host);
 
     mockedConfig.tld = '.tld';
     mockedConfig.routes = {
@@ -62,9 +42,7 @@ describe('PAC Route', () => {
       'docs.test-app': 'http://localhost:3003',
     };
 
-    const res: LightMyRequestResponse = await fastify.inject({
-      ...defRequestArgs,
-    });
+    const res: LightMyRequestResponse = await fastify.inject(defRequestArgs);
 
     expect(res.statusCode).toEqual(StatusCodes.Ok);
     expect(res.headers['content-type']).toEqual(
@@ -76,17 +54,17 @@ describe('PAC Route', () => {
     // Check each route is properly included in the PAC file
     for (const route in mockedConfig.routes) {
       expect(res.body).toContain(
-        `if (dnsDomainIs(host, "${route}${mockedConfig.tld}")) return "PROXY ${addressInfo.address}:${String(addressInfo.port)}"`,
+        `if (dnsDomainIs(host, "${route}${mockedConfig.tld}")) return "PROXY ${host}"`,
       );
     }
   });
 
-  it('returns 404 status code when host does not match proxy URI', async () => {
+  it('returns 404 status code when host does not match the proxy URI', async () => {
     const res: LightMyRequestResponse = await fastify.inject({
       ...defRequestArgs,
       headers: {
         ...defRequestArgs.headers,
-        host: '127.0.0.1:9999',
+        host: '127.0.0.1:9999', // Invalid host
       },
     });
 
