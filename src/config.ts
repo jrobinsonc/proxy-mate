@@ -72,7 +72,10 @@ const envSchema = z.object({
     .transform((val: string) => Number.parseInt(val, 10))
     .default('2000'),
 });
-let env: z.infer<typeof envSchema>;
+
+type Env = z.infer<typeof envSchema>;
+
+let env: Env;
 
 try {
   env = envSchema.parse({
@@ -93,4 +96,4 @@ try {
 }
 
 export { config, env, LogLevel, NodeEnv };
-export type { Config };
+export type { Config, Env };

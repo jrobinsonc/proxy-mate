@@ -11,6 +11,7 @@
   "eslint.format.enable": true,
   "eslint.useFlatConfig": true,
   "cSpell.words": [
-    "autoconfig"
+    "autoconfig",
+    "proxymate"
   ]
 }

@@ -15,7 +15,5 @@ export function getProxyUri(fastify: FastifyInstance): string {
     throw new Error('Unable to determine server address');
   }
 
-  fastify.log.info(address);
-
-  return `127.0.0.1:${String(address.port)}`;
+  return `${address.address}:${String(address.port)}`;
 }
