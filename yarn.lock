@@ -813,10 +813,10 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@tsconfig/node22@^22.0.0":
-  version "22.0.0"
-  resolved "https://registry.npmjs.org/@tsconfig/node22/-/node22-22.0.0.tgz"
-  integrity sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==
+"@tsconfig/node22@^22.0.2":
+  version "22.0.2"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node22/-/node22-22.0.2.tgz#1e04e2c5cc946dac787d69bb502462a851ae51b6"
+  integrity sha512-Kmwj4u8sDRDrMYRoN9FDEcXD8UpBSaPQQ24Gz+Gamqfm7xxn+GBR7ge/Z7pK8OXNGyUzbSwJj+TH6B+DS/epyA==
 
 "@types/babel__core@^7.1.14":
   version "7.20.5"
