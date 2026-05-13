@@ -44,10 +44,10 @@ describe('Print Registered Routes Plugin', () => {
       `Proxy listening on port ${String(mockedEnv.PORT)} for domains:`,
     );
     expect(mockedLogInfo).toHaveBeenCalledWith(
-      `- ${String(routesHostnames[0])}${String(mockedConfig.tld)}`,
+      `- ${String(routesHostnames[0])}${mockedConfig.tld}`,
     );
     expect(mockedLogInfo).toHaveBeenCalledWith(
-      `- ${String(routesHostnames[1])}${String(mockedConfig.tld)}`,
+      `- ${String(routesHostnames[1])}${mockedConfig.tld}`,
     );
   });
 });
