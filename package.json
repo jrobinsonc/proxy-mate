@@ -11,8 +11,9 @@
     "type": "git",
     "url": "https://github.com/jrobinsonc/proxy-mate.git"
   },
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "check-types": "yarn tsc --noEmit --pretty",
+    "check-types": "tsc --noEmit --pretty",
     "lint": "eslint '{src,tests}/**/*.ts'",
     "lint:fix": "eslint '{src,tests}/**/*.ts' --fix",
     "dev": "tsx watch src/server.ts",

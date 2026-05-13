@@ -14,20 +14,27 @@ jobs:
         with:
           node-version: 22.x
 
-      - uses: actions/cache@v4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          version: 10
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
-      - name: yarn install
-        if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
-        run: yarn install --frozen-lockfile --ignore-scripts
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
-      - name: yarn lint
-        run: yarn lint --max-warnings=0
+      - name: pnpm lint
+        run: pnpm lint --max-warnings=0
 
         env:
           CI: true
@@ -47,20 +54,27 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: actions/cache@v4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          version: 10
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
-      - name: yarn install
-        if: steps.yarn-cache.outputs.cache-hit != 'true' # Over here!
-        run: yarn install --frozen-lockfile --ignore-scripts
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
-      - name: yarn test
-        run: yarn test --ci --reporters="default" --reporters="github-actions"
+      - name: pnpm test
+        run: pnpm test --ci --reporters="default" --reporters="github-actions"
 
         env:
           CI: true
