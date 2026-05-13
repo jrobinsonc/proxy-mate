@@ -19,7 +19,10 @@ describe('Print Registered Routes Plugin', () => {
   ]);
 
   it('logs routes on server start', async () => {
-    const mockedLogInfo: jest.SpyInstance<void, [msg: string, ...args: any[]], any> = jest.spyOn(fastify.log, 'info');
+    const mockedLogInfo: jest.SpyInstance<
+      void,
+      Parameters<(typeof fastify.log)['info']>
+    > = jest.spyOn(fastify.log, 'info');
     const mockedConfig: jest.MockedObjectDeep<Config> = jest.mocked(config);
     const mockedEnv: jest.MockedObjectDeep<Env> = jest.mocked(env);
 
