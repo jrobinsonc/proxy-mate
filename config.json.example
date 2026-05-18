@@ -1,0 +1,7 @@
+{
+  "tld": ".test",
+  "routes": {
+    "api.myapp": "http://127.0.0.1:2001",
+    "files.myapp": "http://127.0.0.1:2002"
+  }
+}
