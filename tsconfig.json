@@ -9,6 +9,7 @@
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "noEmit": true,
+    "types": ["jest", "node"]
   },
   "include": [
     "src/**/*",

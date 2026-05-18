@@ -70,7 +70,7 @@ const envSchema = z.object({
   PORT: z
     .string()
     .transform((val: string) => Number.parseInt(val, 10))
-    .default('2000'),
+    .default(2000),
 });
 
 type Env = z.infer<typeof envSchema>;

@@ -8,7 +8,7 @@ import type { ZodError, ZodIssue } from 'zod';
  * in the format "path.to.field is error message"
  */
 export function parseZodErrors(error: ZodError): string[] {
-  return error.errors.map(
+  return error.issues.map(
     (e: ZodIssue) => `${e.path.join('.')} is ${e.message.toLowerCase()}`,
   );
 }
