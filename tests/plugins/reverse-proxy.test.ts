@@ -1,6 +1,5 @@
 import type { FastifyInstance } from 'fastify';
 import Fastify from 'fastify';
-import { config } from '../../src/config';
 import reverseProxy from '../../src/plugins/reverse-proxy';
 import { StatusCodes } from '../../src/utils/http';
 
@@ -19,7 +18,9 @@ describe('Reverse Proxy Plugin', () => {
 
   beforeAll(async () => {
     upstream = Fastify();
-    upstream.get('/', async () => ({ message: 'hello from upstream' }));
+    upstream.get('/', () => ({
+      message: 'hello from upstream',
+    }));
     await upstream.listen({ port: 3001, host: '127.0.0.1' });
 
     fastify = Fastify();
@@ -33,6 +34,7 @@ describe('Reverse Proxy Plugin', () => {
   });
 
   it('should proxy requests when host matches', async () => {
+    // eslint-disable-next-line @typescript-eslint/typedef
     const response = await fastify.inject({
       method: 'GET',
       url: '/',
@@ -46,6 +48,7 @@ describe('Reverse Proxy Plugin', () => {
   });
 
   it('should return 404 when host does not match any route', async () => {
+    // eslint-disable-next-line @typescript-eslint/typedef
     const response = await fastify.inject({
       method: 'GET',
       url: '/',

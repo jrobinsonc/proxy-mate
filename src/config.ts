@@ -17,7 +17,7 @@ const configSchema = z.object({
   /**
    * Routes.
    */
-  routes: z.record(z.string(), z.string().url()),
+  routes: z.record(z.string(), z.url()),
 });
 
 type Config = z.infer<typeof configSchema>;
@@ -34,15 +34,17 @@ try {
   config = configSchema.parse(configObj);
 } catch (error: unknown) {
   if (error instanceof SyntaxError) {
-    throw new TypeError('Failed to parse configuration file');
+    throw new TypeError('Failed to parse configuration file', { cause: error });
   } else if (error instanceof z.ZodError) {
     throw new TypeError(
       `Invalid configuration: ${parseZodErrors(error).join(', ')}.`,
+      { cause: error },
     );
   }
 
   throw new Error(
     `Unexpected error while processing configuration file: ${error instanceof Error ? error.message : String(error)}`,
+    { cause: error },
   );
 }
 
@@ -59,6 +61,8 @@ const enum NodeEnv {
   Test = 'test',
 }
 
+const DEFAULT_PORT: number = 2000;
+
 // eslint-disable-next-line @typescript-eslint/typedef
 const envSchema = z.object({
   LOG_LEVEL: z
@@ -70,7 +74,7 @@ const envSchema = z.object({
   PORT: z
     .string()
     .transform((val: string) => Number.parseInt(val, 10))
-    .default(2000),
+    .default(DEFAULT_PORT),
 });
 
 type Env = z.infer<typeof envSchema>;
@@ -87,11 +91,13 @@ try {
   if (error instanceof z.ZodError) {
     throw new TypeError(
       `Invalid environment variables: ${parseZodErrors(error).join(', ')}.`,
+      { cause: error },
     );
   }
 
   throw new Error(
     `Unexpected error while processing environment variables: ${error instanceof Error ? error.message : String(error)}`,
+    { cause: error },
   );
 }
 
