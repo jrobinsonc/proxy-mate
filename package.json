@@ -13,9 +13,9 @@
   },
   "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "check-types": "tsc --noEmit --pretty",
+    "check-types": "tsc --pretty",
     "lint": "eslint '{src,tests}/**/*.ts'",
-    "lint:fix": "eslint '{src,tests}/**/*.ts' --fix",
+    "lint:fix": "eslint --fix '{src,tests}/**/*.ts'",
     "dev": "tsx watch src/server.ts",
     "test": "jest",
     "test:watch": "jest --watch",
