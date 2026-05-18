@@ -31,7 +31,7 @@ server.register(autoload, {
 
 server.listen({ port: env.PORT, host: '127.0.0.1' }, (error: Error | null) => {
   if (error) {
-    server.log.error('Error starting server:', error);
+    server.log.error(error, 'Error starting server:');
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers, unicorn/no-process-exit
     process.exit(1);
   }
@@ -43,7 +43,7 @@ async function stop(): Promise<void> {
     await server.close();
     server.log.info('Fastify server stopped');
   } catch (error) {
-    server.log.error('Error during server shutdown:', error);
+    server.log.error(error, 'Error during server shutdown:');
   } finally {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers, unicorn/no-process-exit
     process.exit(0);

@@ -1,4 +1,4 @@
-import type { ZodError, ZodIssue } from 'zod';
+import type { ZodError } from 'zod';
 
 /**
  * Parses a Zod validation error into an array of human-readable error messages
@@ -8,7 +8,8 @@ import type { ZodError, ZodIssue } from 'zod';
  * in the format "path.to.field is error message"
  */
 export function parseZodErrors(error: ZodError): string[] {
-  return error.errors.map(
-    (e: ZodIssue) => `${e.path.join('.')} is ${e.message.toLowerCase()}`,
+  return error.issues.map(
+    (e: ZodError['issues'][number]) =>
+      `${e.path.join('.')} is ${e.message.toLowerCase()}`,
   );
 }
