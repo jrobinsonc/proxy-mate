@@ -66,19 +66,6 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/explicit-module-boundary-types': 'warn',
-      '@typescript-eslint/typedef': [
-        'warn',
-        {
-          arrayDestructuring: true,
-          objectDestructuring: true,
-          arrowParameter: true,
-          memberVariableDeclaration: true,
-          parameter: true,
-          propertyDeclaration: true,
-          variableDeclaration: true,
-          variableDeclarationIgnoreFunction: true,
-        },
-      ],
       '@typescript-eslint/strict-boolean-expressions': 'warn',
       '@typescript-eslint/no-unsafe-call': 'warn',
       '@typescript-eslint/no-unsafe-member-access': 'warn',
@@ -95,6 +82,7 @@ export default tseslint.config(
        * that could have several types and in this case it's better to explicitly define what are those types.
        */
       '@typescript-eslint/no-inferrable-types': 'off',
+
       // /**
       //  * The nullish coalescing operator only coalesces when the checked value is null or
       //  * undefined, but what if you want to coalesce on any falsy value like an empty string?
