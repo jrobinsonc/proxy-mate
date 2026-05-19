@@ -21,13 +21,28 @@ export default function pacRoute(
   opts: FastifyPluginOptions,
   done: FastifyPluginDoneFn,
 ): void {
+  let cachedProxyUri: string | null = null;
+  let cachedPacFile: string | null = null;
+
   fastify.get('/proxy.pac', (request: FastifyRequest, reply: FastifyReply) => {
-    const proxyUri: string = getProxyUri(fastify);
+    cachedProxyUri ??= getProxyUri(fastify);
 
     // This route should only be available for the proxy URI.
-    if (request.host !== proxyUri) {
+    if (request.host !== cachedProxyUri) {
       reply.code(StatusCodes.NotFound).send();
       return;
+    }
+
+    if (cachedPacFile === null) {
+      const uri: string = cachedProxyUri;
+      const proxyRules: string = Object.keys(config.routes)
+        .map(
+          (domain: string) =>
+            `\tif (dnsDomainIs(host, "${domain}${config.tld}")) return "PROXY ${uri}";`,
+        )
+        .join('\n');
+
+      cachedPacFile = `function FindProxyForURL(url, host) {\n${proxyRules}\n\treturn "DIRECT";\n}`;
     }
 
     reply.header(
@@ -35,16 +50,7 @@ export default function pacRoute(
       'application/x-ns-proxy-autoconfig; charset=utf-8',
     );
 
-    const proxyRules: string = Object.keys(config.routes)
-      .map(
-        (domain: string) =>
-          `\tif (dnsDomainIs(host, "${domain}${config.tld}")) return "PROXY ${proxyUri}";`,
-      )
-      .join('\n');
-
-    reply.send(
-      `function FindProxyForURL(url, host) {\n${proxyRules}\n\treturn "DIRECT";\n}`,
-    );
+    reply.send(cachedPacFile);
   });
 
   done();
