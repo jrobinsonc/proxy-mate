@@ -101,5 +101,5 @@ try {
   );
 }
 
-export { config, env, NodeEnv };
+export { config, env };
 export type { Config, Env };

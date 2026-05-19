@@ -5,7 +5,6 @@ import type {
   FastifyReply,
   FastifyRequest,
 } from 'fastify';
-import pkg from '../../package.json';
 import fp from 'fastify-plugin';
 
 /**
@@ -21,7 +20,7 @@ function addAppHeaders(
   done: FastifyPluginDoneFn,
 ): void {
   fastify.addHook('onSend', async (_: FastifyRequest, reply: FastifyReply) => {
-    reply.header('X-ProxyMate', pkg.version);
+    reply.header('X-ProxyMate', '1');
   });
 
   done();
