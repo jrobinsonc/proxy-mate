@@ -101,5 +101,5 @@ try {
   );
 }
 
-export { config, env, LogLevel, NodeEnv };
+export { config, env, NodeEnv };
 export type { Config, Env };
