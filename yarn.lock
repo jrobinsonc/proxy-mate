@@ -463,10 +463,10 @@
     ajv-formats "^3.0.1"
     fast-uri "^3.0.0"
 
-"@fastify/autoload@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@fastify/autoload/-/autoload-6.0.3.tgz#5c96169fae0fdf7d5d36f12e9e701d66c0fbc96b"
-  integrity sha512-/wM2pmI7jP2fGah3YuP14i9vuaijpD4gQYLiyd+eD7gUxpA3B4R6/0QIXQS2eJaYD9aIX4ZFRzPmrZsaetfcWw==
+"@fastify/autoload@^6.3.1":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@fastify/autoload/-/autoload-6.3.1.tgz#a0cd54a82e71be9456f80611ff8e9beefd7b84ed"
+  integrity sha512-0fsG+lO3m5yEZVjXKpltCe+2eHhM6rfAPQhvlGUgLUFTw/N2wA9WqPTObMtrF3oUCUrxbSDv60HlUIoh+aFM1A==
 
 "@fastify/error@^4.0.0":
   version "4.0.0"
