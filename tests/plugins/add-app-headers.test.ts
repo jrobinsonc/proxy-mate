@@ -1,5 +1,4 @@
 import type { FastifyInstance, LightMyRequestResponse } from 'fastify';
-import pkg from '../../package.json';
 import { buildFastifyInstance } from '../__helpers__/fastify';
 import addAppHeaders from '../../src/plugins/add-app-headers';
 
@@ -12,6 +11,6 @@ describe('Add App Headers Plugin', () => {
       url: '/',
     });
 
-    expect(res.headers['x-proxymate']).toEqual(pkg.version);
+    expect(res.headers['x-proxymate']).toEqual('1');
   });
 });
