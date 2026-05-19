@@ -4,12 +4,12 @@ import { parseZodErrors } from '../../src/utils/zod';
 describe('Zod Utility', () => {
   describe('parseZodErrors', () => {
     it('should return an empty array when there are no issues', () => {
-      const error = new ZodError([]);
+      const error: ZodError = new ZodError([]);
       expect(parseZodErrors(error)).toEqual([]);
     });
 
     it('should return formatted strings for a single issue', () => {
-      const error = new ZodError([
+      const error: ZodError = new ZodError([
         {
           code: 'custom',
           path: ['user', 'name'],
@@ -22,7 +22,7 @@ describe('Zod Utility', () => {
     });
 
     it('should return formatted strings for multiple issues', () => {
-      const error = new ZodError([
+      const error: ZodError = new ZodError([
         {
           code: 'custom',
           path: ['user', 'name'],
@@ -41,7 +41,7 @@ describe('Zod Utility', () => {
     });
 
     it('should handle issues with an empty path', () => {
-      const error = new ZodError([
+      const error: ZodError = new ZodError([
         {
           code: 'custom',
           path: [],
